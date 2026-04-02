@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Game Programming Patterns 阅读笔记 1 - Lin&#x27;s Blog</title>
+<script>{;const saved = localStorage.getItem('rspress-theme-appearance');const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches;const isDark = !saved || saved === 'auto' ? preferDark : saved === 'dark';document.documentElement.classList.toggle('dark', isDark);document.documentElement.classList.toggle('rp-dark', isDark);document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';}</script>
+<link href="/static/css/styles.23bddd49fc.css" rel="stylesheet">
+<script defer src="/static/js/styles.821932b215.js"></script>
+<script defer src="/static/js/lib-react.27c8ef0530.js"></script>
+<script defer src="/static/js/lib-router.fc456fdbef.js"></script>
+<script defer src="/static/js/5163.ccbaa09aee.js"></script>
+<script defer src="/static/js/index.58d3456b18.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Rspress v2.0.5">
+<link rel="icon" href="/icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Game Programming Patterns 阅读笔记 1 - Lin's Blog">
+<meta name="description" content="Introduction - Game Programming Patterns">
+<meta property="og:description" content="Introduction - Game Programming Patterns">
+<meta name="referrer" content="no-referrer-when-downgrade"></head>
+
+  <body>
+    <div id="__rspress_root"><header class="rp-nav"><div class="rp-nav__left"><div class="rp-nav__title"><a href="/" class="rp-nav__title__link rp-link"><span>Lin&#x27;s Blog</span></a></div></div><div class="rp-nav__right"><button class="rp-search-button"><div class="rp-search-button__content"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21" class="rp-search-button__icon"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg><span class="rp-search-button__word">Search...</span></div><div class="rp-search-button__hotkey" style="opacity:0"><span></span><span>K</span></div></button><div class="rp-search-button--mobile"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg></div><ul class="rp-nav-menu rp-nav-menu--right"><li class="rp-nav-menu__item"><a href="/archives" class="rp-nav-menu__item__container rp-link">归档</a></li><li class="rp-nav-menu__item"><a href="/categories" class="rp-nav-menu__item__container rp-link">分类</a></li><li class="rp-nav-menu__item"><a href="/tags" class="rp-nav-menu__item__container rp-link">标签</a></li><li class="rp-nav-menu__item"><a href="/about" class="rp-nav-menu__item__container rp-link">关于我</a></li></ul><div class="rp-nav__others"><div class="rp-nav-menu__divider"></div><div class="rp-switch-appearance"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" class="rp-switch-appearance__icon rp-switch-appearance__icon--sun"><path fill="currentColor" d="m7.001 15.848-1.226 1.226a.58.58 0 0 0 0 .818.58.58 0 0 0 .818 0l1.226-1.226a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0m-.352-8.735a.584.584 0 0 0 .825-.825L6.237 5.051a.584.584 0 0 0-.825.825zM5.011 11.07h-1.75a.584.584 0 0 0 0 1.167h1.75c.324 0 .584-.26.584-.583a.585.585 0 0 0-.584-.584m7.003-5.835c.324 0 .584-.26.584-.584V2.9a.58.58 0 0 0-.584-.584.58.58 0 0 0-.583.583V4.65c0 .323.262.584.583.584m5.616 1.621 1.226-1.225a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0l-1.226 1.225a.58.58 0 0 0 0 .818.576.576 0 0 0 .818 0m3.138 4.214h-1.75a.58.58 0 0 0-.584.584c0 .324.26.584.583.584h1.751a.584.584 0 1 0 0-1.167m-3.389 5.124a.584.584 0 0 0-.825.825l1.238 1.238a.584.584 0 0 0 .825-.826zm-5.365-9.795a5.256 5.256 0 0 0-5.257 5.258 5.256 5.256 0 0 0 5.257 5.257 5.256 5.256 0 0 0 5.257-5.257 5.256 5.256 0 0 0-5.257-5.258m0 11.675a.58.58 0 0 0-.583.583v1.751a.582.582 0 1 0 1.167 0v-1.75a.584.584 0 0 0-.584-.584"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" viewBox="0 0 19 19" class="rp-switch-appearance__icon rp-switch-appearance__icon--moon"><path fill="currentColor" d="M9.166 0a9.2 9.2 0 0 1 1.857.188.834.834 0 0 1 .042 1.623 4.47 4.47 0 1 0 5.457 5.457l.048-.135a.834.834 0 0 1 1.575.177q.186.902.188 1.856A9.168 9.168 0 1 1 9.166 0"></path></svg></div><div class="rp-social-links"><a href="https://github.com/Linnnnnn42" target="_blank" rel="noopener noreferrer" class="rp-social-links__item"><div class="rp-social-links__icon"><div class="rp-social-links__icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></div></div></a><ul class="rp-hover-group rp-hover-group--hidden rp-hover-group--right"></ul></div></div><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__sm"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg></button><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__md"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg><ul class="rp-hover-group rp-hover-group--hidden rp-hover-group--right"><div class="rp-nav-menu__others-mobile__container"><div class="rp-nav-hamburger__md__hover-group"><div class="rp-nav-screen-appearance"><div class="rp-nav-screen-appearance__left">Theme</div><div class="rp-nav-screen-appearance__right"></div></div><div class="rp-nav-screen-divider"></div><div class="rp-social-links"><a href="https://github.com/Linnnnnn42" target="_blank" rel="noopener noreferrer" class="rp-social-links__item"><div class="rp-social-links__icon"><div class="rp-social-links__icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></div></div></a><ul class="rp-hover-group rp-hover-group--hidden rp-hover-group--right"></ul></div></div></div></ul></button></div></header><div class="rp-doc-layout__menu"><div class="rp-sidebar-menu"><div class="rp-sidebar-menu__left"></div><button type="button" class="rp-sidebar-menu__right"><span class="rp-sidebar-menu__right__text">On This Page</span><svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg><svg width="1em" height="1em" viewBox="0 0 32 32" class="rp-sidebar-menu__right__icon" style="transform:rotate(0deg);transition:transform 0.2s ease-out"><path fill="currentColor" d="M22 16 12 26l-1.4-1.4 8.6-8.6-8.6-8.6L12 6z"></path></svg></button></div></div><div style="width:100px"></div><div class="rp-doc-layout__container"><aside class="rp-doc-layout__sidebar-placeholder" style="width:0"></aside><div class="rp-doc-layout__doc rp-doc-layout__doc--wide"><main class="rp-doc-layout__doc-container"><div style="margin-top:-1.25rem;margin-bottom:2rem"><div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start"><span style="margin-right:1rem;font-weight:bold"><iconify-icon icon="{&quot;body&quot;:&quot;&lt;path fill=\&quot;currentColor\&quot; d=\&quot;M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5z\&quot;/&gt;&quot;}" inline=""></iconify-icon> <!-- -->2026-03-23</span><span style="margin-right:1rem"><iconify-icon icon="{&quot;body&quot;:&quot;&lt;path fill=\&quot;currentColor\&quot; d=\&quot;M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139z\&quot;/&gt;&quot;}" inline=""></iconify-icon> <a href="/categories?category=游戏开发" class="rp-link">游戏开发</a></span><span style="margin-right:1rem"><iconify-icon icon="{&quot;body&quot;:&quot;&lt;path fill=\&quot;currentColor\&quot; d=\&quot;M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1H2zm4 3.5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0z\&quot;/&gt;&quot;}" inline=""></iconify-icon> <a href="/tags?tag=Game Programming Patterns" class="rp-link">Game Programming Patterns</a></span><span style="margin-right:1rem"><iconify-icon icon="{&quot;body&quot;:&quot;&lt;path fill=\&quot;currentColor\&quot; d=\&quot;M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1H2zm4 3.5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0z\&quot;/&gt;&quot;}" inline=""></iconify-icon> <a href="/tags?tag=设计模式" class="rp-link">设计模式</a></span><span style="margin-right:1rem"><iconify-icon icon="{&quot;body&quot;:&quot;&lt;path fill=\&quot;currentColor\&quot; d=\&quot;M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM5.485 6.879l1.036 4.144l.997-3.655a.5.5 0 0 1 .964 0l.997 3.655l1.036-4.144a.5.5 0 0 1 .97.242l-1.5 6a.5.5 0 0 1-.967.01L8 9.402l-1.018 3.73a.5.5 0 0 1-.967-.01l-1.5-6a.5.5 0 1 1 .97-.242z\&quot;/&gt;&quot;}" inline=""></iconify-icon> <!-- -->1.3k<!-- --> 字</span><span style="margin-right:1rem"><iconify-icon icon="{&quot;body&quot;:&quot;&lt;path fill=\&quot;currentColor\&quot; d=\&quot;M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z\&quot;/&gt;&quot;}" inline=""></iconify-icon> <!-- -->4<!-- --> 分钟</span><span style="margin-right:1rem"><iconify-icon icon="{&quot;body&quot;:&quot;&lt;g fill=\&quot;currentColor\&quot;&gt;&lt;path d=\&quot;M10.5 8a2.5 2.5 0 1 1-5 0a2.5 2.5 0 0 1 5 0z\&quot;/&gt;&lt;path d=\&quot;M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7a3.5 3.5 0 0 0 0 7z\&quot;/&gt;&lt;/g&gt;&quot;}" inline=""></iconify-icon> </span></div></div><div class="rp-doc rspress-doc"><!--$--><h1 class="rp-toc-include" id="game-programming-patterns-阅读笔记-1"><a href="#game-programming-patterns-阅读笔记-1" class="rp-header-anchor rp-link" aria-hidden="true">#</a>Game Programming Patterns 阅读笔记 1<!-- --> </h1>
+<blockquote>
+<p>Introduction - Game Programming Patterns</p>
+</blockquote>
+<p>本书主要介绍作者从自身的游戏开发经验中发现的最适用于游戏的一些设计模式。</p>
+<h2 class="rp-toc-include" id="i-introduction---序"><a href="#i-introduction---序" class="rp-header-anchor rp-link" aria-hidden="true">#</a>I. Introduction - 序</h2>
+<h3 class="rp-toc-include" id="whats-in-store---与市面上已有书籍的对比"><a href="#whats-in-store---与市面上已有书籍的对比" class="rp-header-anchor rp-link" aria-hidden="true">#</a>What&#x27;s in Store - 与市面上已有书籍的对比</h3>
+<ul>
+<li>
+<p>本书不是 <strong>Domain-Specific Book</strong></p>
+</li>
+<li>
+<p>本书不是 <strong>Whole-Engine Book</strong></p>
+</li>
+<li>
+<p>本书中每一章节都传达<strong>独立的</strong>、可用于编码中的思想方法。这意味着你可以快速找到你感兴趣的章节优先阅读，以此快速解决你当前在编码中遇到的难题。</p>
+</li>
+</ul>
+<h3 class="rp-toc-include" id="how-it-relates-to-design-patterns---本书和设计模式有何关系"><a href="#how-it-relates-to-design-patterns---本书和设计模式有何关系" class="rp-header-anchor rp-link" aria-hidden="true">#</a>How it Relates to Design Patterns - 本书和设计模式有何关系</h3>
+<p>本书与 GoF 的经典著作 &quot;<em>Design Patterns: Elements of Reusable Object-Oriented Software</em>&quot; 有关。</p>
+<p>本书介绍的设计模式致力于：</p>
+<ul>
+<li>让游戏中的事情以正确的顺序在合适的时间发生</li>
+<li>减少耦合，帮助你快速迭代</li>
+<li>游戏中，各个系统的良好相互作用</li>
+<li>优化游戏性能（用更少的CPU周期干更多的事情）</li>
+</ul>
+<h3 class="rp-toc-include" id="how-to-read-the-book---如何阅读本书"><a href="#how-to-read-the-book---如何阅读本书" class="rp-header-anchor rp-link" aria-hidden="true">#</a>How to Read the Book - 如何阅读本书</h3>
+<p>本书分为三大部分</p>
+<ul>
+<li>Introduction</li>
+<li>Design Patterns Revisited</li>
+<li>⭐Core Part: Patterns for Game Development
+<ul>
+<li>Sequencing Patterns  - 序列模式
+<ul>
+<li><strong>Intent</strong>: for quickly hunting</li>
+<li><strong>Motivation</strong>: an example problem</li>
+<li><strong>Pattern</strong>: distilling the essence</li>
+<li><strong>When to use &amp; Keep in Mind</strong></li>
+<li><strong>Sample Code</strong></li>
+<li><strong>Design Decisions</strong>: how to implement it</li>
+<li><strong>See Also</strong></li>
+</ul>
+</li>
+<li>Behavioural Patterns - 行为模式
+<ul>
+<li>(As above)</li>
+</ul>
+</li>
+<li>Decoupling Patterns - 解耦模式
+<ul>
+<li>(As above)</li>
+</ul>
+</li>
+<li>Optimization Patterns - 优化模式
+<ul>
+<li>(As above)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 class="rp-toc-include" id="about-the-sample-code---关于示例代码"><a href="#about-the-sample-code---关于示例代码" class="rp-header-anchor rp-link" aria-hidden="true">#</a>About the Sample Code - 关于示例代码</h3>
+<ul>
+<li>C++
+<ul>
+<li>not written in &quot;modern&quot;</li>
+</ul>
+</li>
+</ul>
+<h3 class="rp-toc-include" id="where-to-go-from-here---接下来怎么做"><a href="#where-to-go-from-here---接下来怎么做" class="rp-header-anchor rp-link" aria-hidden="true">#</a>Where to Go From Here - 接下来怎么做</h3>
+<h2 class="rp-toc-include" id="1-architecture-performance-and-game---架构性能和游戏"><a href="#1-architecture-performance-and-game---架构性能和游戏" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1. Architecture, Performance, and Game - 架构，性能和游戏</h2>
+<p>本节介绍游戏开发中的软件架构</p>
+<h3 class="rp-toc-include" id="what-is-software-architecture---什么是软件架构"><a href="#what-is-software-architecture---什么是软件架构" class="rp-header-anchor rp-link" aria-hidden="true">#</a>What is Software Architecture? - 什么是软件架构</h3>
+<ul>
+<li>软件架构不是算法（3D算法、搜索树、空间音频），软件架构是如何组织这些算法、这些系统。</li>
+<li>我们期望学习如何良好地组织代码</li>
+</ul>
+<h4 class="rp-toc-include" id="what-is-good-software-architecture---什么是好的架构"><a href="#what-is-good-software-architecture---什么是好的架构" class="rp-header-anchor rp-link" aria-hidden="true">#</a>What is good software architecture? - 什么是好的架构</h4>
+<ul>
+<li>打破幻想，我们不能期望一个每次迭代的时候都丝滑无比、代码库毫无波澜的架构存在</li>
+</ul>
+<blockquote>
+<p>Architecture is about <strong>change</strong>.</p>
+</blockquote>
+<ul>
+<li>软件架构越好，在修改代码时候遇到的阻力就越小</li>
+</ul>
+<h4 class="rp-toc-include" id="how-do-you-make-a-change---如何修改代码"><a href="#how-do-you-make-a-change---如何修改代码" class="rp-header-anchor rp-link" aria-hidden="true">#</a>How do you make a change? - 如何修改代码</h4>
+<div></div>
+<h4 class="rp-toc-include" id="how-do-decoupling-解耦-help---为什么解耦很重要"><a href="#how-do-decoupling-解耦-help---为什么解耦很重要" class="rp-header-anchor rp-link" aria-hidden="true">#</a>How do decoupling (解耦) help? - 为什么解耦很重要</h4>
+<ul>
+<li><strong>耦合（Coupling）</strong>的一种理解：如果两段代码是耦合的，那么意味着你不能做到只理解其中一个而不理解另一个</li>
+<li>良好的软件架构的 <strong>关键目的</strong>：<strong>尽量减少你每次更改前需要学习的相关代码，减小这个上下文的长度</strong></li>
+<li><strong>解耦（Decoupling）</strong>的一种理解：对一段代码的更改并不意味着必须对另一段代码进行更改。</li>
+</ul>
+<h3 class="rp-toc-include" id="at-what-cost---那么代价呢"><a href="#at-what-cost---那么代价呢" class="rp-header-anchor rp-link" aria-hidden="true">#</a>At What Cost? - 那么代价呢？</h3>
+<ul>
+<li>你必须遵守规范，每次变更时都不能懈怠，将新内容完美的融入旧代码中，让代码库在无数细小的变化中保持条理清晰</li>
+</ul>
+<blockquote>
+<p>But this is where it starts to get tricky. Whenever you add a layer of abstraction or a place where extensibility is supported, you’re <em><strong>speculating</strong></em> that you will need that flexibility later. <strong>You’re adding code and complexity to your game that takes time to develop, debug, and maintain.</strong></p>
+</blockquote>
+<ul>
+<li>但是...每一层抽象，每一个可拓展点，都会给未来的自己增加维护上的成本</li>
+<li>个人理解：⭐<strong>心智负担 = 抽象层 + 实际功能层</strong>
+<ul>
+<li>平衡两者是很重要的</li>
+<li>最终目的是降低维护时的心智负担</li>
+</ul>
+</li>
+</ul>
+<h3 class="rp-toc-include" id="performance-and-speed---性能与速度"><a href="#performance-and-speed---性能与速度" class="rp-header-anchor rp-link" aria-hidden="true">#</a>Performance and Speed - 性能与速度</h3>
+<ul>
+<li>性能和灵活性之间是负相关的
+<ul>
+<li>反例：C++模板，没有运行时(Runtime)开销，<strong>启发：编译时语法糖是好的选择</strong></li>
+</ul>
+</li>
+<li>灵活性和迭代速度是正相关的</li>
+</ul>
+<blockquote>
+<p>My experience, though, is that <strong>it’s easier to make a fun game fast than it is to make a fast game fun.</strong> One compromise is to keep the code flexible until the design settles down and then tear out some of the abstraction later to improve your performance.</p>
+</blockquote>
+<ul>
+<li><strong>快速迭代，直到核心玩法稳定后，再考虑优化</strong></li>
+</ul>
+<h3 class="rp-toc-include" id="the-good-in-bad-code---坏代码也有优点"><a href="#the-good-in-bad-code---坏代码也有优点" class="rp-header-anchor rp-link" aria-hidden="true">#</a>The Good in Bad Code - 坏代码也有优点</h3>
+<ul>
+<li>
+<p>在原型开发中，用”坏代码“快速迭代是很好的做法</p>
+</li>
+<li>
+<p>但是...要确保你最终能够丢弃它，不在正式项目代码中使用</p>
+</li>
+<li>
+<p>否则就需要完全 <strong>重写</strong></p>
+</li>
+</ul>
+<h3 class="rp-toc-include" id="striking-a-balance---保持平衡"><a href="#striking-a-balance---保持平衡" class="rp-header-anchor rp-link" aria-hidden="true">#</a>Striking a Balance - 保持平衡</h3>
+<ul>
+<li><strong>不可能三角</strong>：优雅的架构、极高的运行时性能、极短的编码时间和低心智负担</li>
+</ul>
+<h3 class="rp-toc-include" id="simplicity---简洁"><a href="#simplicity---简洁" class="rp-header-anchor rp-link" aria-hidden="true">#</a>Simplicity - 简洁</h3>
+<ul>
+<li>保持你的代码简单直接有助于达到以上提到的平衡</li>
+</ul>
+<blockquote>
+<p>However, note that I’m not saying simple code takes less time to <em>write</em>. You’d think it would since you end up with less total code, but a good solution isn’t an accretion of code, it’s a <em><strong>distillation</strong></em> of it.</p>
+</blockquote>
+<ul>
+<li>好的代码能够一骑当千，解决一群问题，而不仅仅是一个问题</li>
+</ul>
+<h3 class="rp-toc-include" id="go-on-with-it-already---马上结束"><a href="#go-on-with-it-already---马上结束" class="rp-header-anchor rp-link" aria-hidden="true">#</a>Go On With It, Already - 马上结束</h3>
+<ul>
+<li>不要做 <strong>无用的抽象和解耦</strong>，除非你 <strong>真的需要</strong></li>
+<li><strong>性能问题</strong> 要抓大放小，小问题要留到最后解决</li>
+<li>快速迭代，但 <strong>不要过快</strong></li>
+<li><strong>如果你在将来打算放弃代码，那么就别浪费时间让他们变得优雅</strong></li>
+<li>⭐ <strong>享受创作过程才能做出有趣的游戏！</strong></li>
+</ul>
+<h2 class="rp-toc-include" id="references---引用"><a href="#references---引用" class="rp-header-anchor rp-link" aria-hidden="true">#</a>References - 引用</h2>
+<ul>
+<li><a href="https://gameprogrammingpatterns.com/introduction.html" target="_blank" rel="noopener noreferrer" class="rp-link">Introduction · Game Programming Patterns</a></li>
+<li><a href="https://gameprogrammingpatterns.com/architecture-performance-and-games.html" target="_blank" rel="noopener noreferrer" class="rp-link">Architecture, Performance, and Games · Introduction · Game Programming Patterns</a></li>
+</ul><!--/$--></div><footer class="rp-doc-footer"><div class="rp-doc-footer__edit"></div><div class="rp-doc-footer__divider"></div><div class="rp-prev-next-page"><div class="rp-prev-next-page__placeholder"></div><div class="rp-prev-next-page__placeholder"></div></div></footer><div style="display:flex;justify-content:space-between;margin-top:3rem;margin-bottom:2rem;gap:1.5rem"><div style="flex:1;width:auto"><a href="/frontend/blog/migration-rspress-v2" style="flex:1;padding:1rem 1.5rem;border-radius:8px;border:1px solid #e5e7eb;background-color:#f9fafb;text-decoration:none;color:inherit;transition:all 0.2s ease;display:flex;align-items:center;gap:0.75rem"><div style="flex:1"><div style="font-size:0.875rem;font-weight:500;color:#6b7280;margin-bottom:0.25rem">上一篇</div><div style="font-size:1rem;font-weight:600;color:#1f2937;line-height:1.4;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">Rspress 1.x 迁移到 2.x 注意事项</div></div></a></div><div style="flex:1;width:auto"><a href="/game-dev/game-programming-patterns/game-programming-patterns-2-note" style="flex:1;padding:1rem 1.5rem;border-radius:8px;border:1px solid #e5e7eb;background-color:#f9fafb;text-decoration:none;color:inherit;transition:all 0.2s ease;display:flex;align-items:center;gap:0.75rem;flex-direction:row-reverse;text-align:right"><div style="flex:1"><div style="font-size:0.875rem;font-weight:500;color:#6b7280;margin-bottom:0.25rem">下一篇</div><div style="font-size:1rem;font-weight:600;color:#1f2937;line-height:1.4;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">Game Programming Patterns 阅读笔记 2</div></div></a></div></div><br/></main></div><aside class="rp-doc-layout__outline rp-scrollbar"><div class="rp-outline"><div class="rp-outline__title">On This Page<svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg></div><nav class="rp-outline__toc rp-scrollbar"><a href="#i-introduction---序" class="rp-toc-item rp-link" title="I. Introduction - 序" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">I. Introduction - 序</span></a><a href="#whats-in-store---与市面上已有书籍的对比" class="rp-toc-item rp-link" title="What&#x27;s in Store - 与市面上已有书籍的对比" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">What&#x27;s in Store - 与市面上已有书籍的对比</span></a><a href="#how-it-relates-to-design-patterns---本书和设计模式有何关系" class="rp-toc-item rp-link" title="How it Relates to Design Patterns - 本书和设计模式有何关系" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">How it Relates to Design Patterns - 本书和设计模式有何关系</span></a><a href="#how-to-read-the-book---如何阅读本书" class="rp-toc-item rp-link" title="How to Read the Book - 如何阅读本书" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">How to Read the Book - 如何阅读本书</span></a><a href="#about-the-sample-code---关于示例代码" class="rp-toc-item rp-link" title="About the Sample Code - 关于示例代码" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">About the Sample Code - 关于示例代码</span></a><a href="#where-to-go-from-here---接下来怎么做" class="rp-toc-item rp-link" title="Where to Go From Here - 接下来怎么做" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">Where to Go From Here - 接下来怎么做</span></a><a href="#1-architecture-performance-and-game---架构性能和游戏" class="rp-toc-item rp-link" title="1. Architecture, Performance, and Game - 架构，性能和游戏" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">1. Architecture, Performance, and Game - 架构，性能和游戏</span></a><a href="#what-is-software-architecture---什么是软件架构" class="rp-toc-item rp-link" title="What is Software Architecture? - 什么是软件架构" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">What is Software Architecture? - 什么是软件架构</span></a><a href="#what-is-good-software-architecture---什么是好的架构" class="rp-toc-item rp-link" title="What is good software architecture? - 什么是好的架构" style="padding-left:24px" data-depth="2"><span class="rp-toc-item__text rp-doc">What is good software architecture? - 什么是好的架构</span></a><a href="#how-do-you-make-a-change---如何修改代码" class="rp-toc-item rp-link" title="How do you make a change? - 如何修改代码" style="padding-left:24px" data-depth="2"><span class="rp-toc-item__text rp-doc">How do you make a change? - 如何修改代码</span></a><a href="#how-do-decoupling-解耦-help---为什么解耦很重要" class="rp-toc-item rp-link" title="How do decoupling (解耦) help? - 为什么解耦很重要" style="padding-left:24px" data-depth="2"><span class="rp-toc-item__text rp-doc">How do decoupling (解耦) help? - 为什么解耦很重要</span></a><a href="#at-what-cost---那么代价呢" class="rp-toc-item rp-link" title="At What Cost? - 那么代价呢？" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">At What Cost? - 那么代价呢？</span></a><a href="#performance-and-speed---性能与速度" class="rp-toc-item rp-link" title="Performance and Speed - 性能与速度" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">Performance and Speed - 性能与速度</span></a><a href="#the-good-in-bad-code---坏代码也有优点" class="rp-toc-item rp-link" title="The Good in Bad Code - 坏代码也有优点" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">The Good in Bad Code - 坏代码也有优点</span></a><a href="#striking-a-balance---保持平衡" class="rp-toc-item rp-link" title="Striking a Balance - 保持平衡" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">Striking a Balance - 保持平衡</span></a><a href="#simplicity---简洁" class="rp-toc-item rp-link" title="Simplicity - 简洁" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">Simplicity - 简洁</span></a><a href="#go-on-with-it-already---马上结束" class="rp-toc-item rp-link" title="Go On With It, Already - 马上结束" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">Go On With It, Already - 马上结束</span></a><a href="#references---引用" class="rp-toc-item rp-link" title="References - 引用" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">References - 引用</span></a></nav><div class="rp-outline__divider"></div><div class="rp-outline__bottom"></div></div></aside></div><div style="width:100px"></div><footer style="margin-top:1.5rem;padding-top:2rem;padding-bottom:2rem;padding-left:1.5rem;padding-right:1.5rem;width:100%"><div style="margin:auto;width:100%;text-align:center"><div style="font-weight:500;font-size:0.875rem;line-height:1.25rem;color:#6b7280">© 2025-<!-- -->2026<!-- --> Lin&#x27;s Blog -⚡Powered by<!-- --> <a href="https://rspress.dev/" target="_blank" rel="noreferrer" style="color:#3b82f6;text-decoration:underline">Rspress</a><br/></div></div></footer></div>
+    <div id="__rspress_modal_container"></div>
+  </body>
+</html>
